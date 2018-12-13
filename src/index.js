@@ -1,1 +1,3 @@
-console.log('it works!');
+import app from './app';
+
+app();
