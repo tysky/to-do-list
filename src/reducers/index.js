@@ -20,9 +20,22 @@ const tasks = handleActions({
   [actions.fetchTasksSuccess](state, { payload }) {
     return payload.tasks;
   },
+  [actions.addTask](state, { payload: { task } }) {
+    return { ...state, [task.id]: task };
+  },
 }, {});
+
+const newTaskInputText = handleActions({
+  [actions.addTask]() {
+    return '';
+  },
+  [actions.updateNewTaskText](state, { payload: { text } }) {
+    return text;
+  },
+}, '');
 
 export default combineReducers({
   tasks,
   tasksFetchingState,
+  newTaskInputText,
 });

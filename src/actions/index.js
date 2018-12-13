@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { createAction } from 'redux-actions';
+import { uniqueId } from 'lodash';
 import routes from '../routes';
 
 export const fetchTasksRequest = createAction('TASKS_FETCH_REQUEST');
@@ -16,3 +17,6 @@ export const fetchTasks = () => async (dispatch) => {
     dispatch(fetchTasksFailure());
   }
 };
+
+export const addTask = createAction('TASK_ADD', task => ({ task: { ...task, id: uniqueId() } }));
+export const updateNewTaskText = createAction('NEW_TASK_TEXT_UPDATE');
