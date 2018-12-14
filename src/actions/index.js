@@ -1,22 +1,37 @@
 import axios from 'axios';
 import { createAction } from 'redux-actions';
-import { uniqueId } from 'lodash';
 import routes from '../routes';
 
-export const fetchTasksRequest = createAction('TASKS_FETCH_REQUEST');
-export const fetchTasksSuccess = createAction('TASKS_FETCH_SUCCESS');
-export const fetchTasksFailure = createAction('TASKS_FETCH_FAILURE');
+export const initFetchTasksRequest = createAction('TASKS_INIT_FETCH_REQUEST');
+export const initFetchTasksSuccess = createAction('TASKS_INIT_FETCH_SUCCESS');
+export const initFetchTasksFailure = createAction('TASKS_INIT_FETCH_FAILURE');
 
-export const fetchTasks = () => async (dispatch) => {
-  dispatch(fetchTasksRequest());
+export const initFetchTasks = () => async (dispatch) => {
+  dispatch(initFetchTasksRequest());
   try {
     const url = routes.tasksUrl();
     const response = await axios.get(url);
-    dispatch(fetchTasksSuccess({ tasks: response.data.tasks }));
+    dispatch(initFetchTasksSuccess(response.data.tasks));
   } catch (e) {
-    dispatch(fetchTasksFailure());
+    dispatch(initFetchTasksSuccess());
   }
 };
 
-export const addTask = createAction('TASK_ADD', task => ({ task: { ...task, id: uniqueId() } }));
 export const updateNewTaskText = createAction('NEW_TASK_TEXT_UPDATE');
+
+export const addTasksRequest = createAction('TASKS_ADD_REQUEST');
+export const addTasksSuccess = createAction('TASKS_ADD_SUCCESS');
+export const addTasksFailure = createAction('TASKS_ADD_FAILURE');
+
+export const addTask = task => async (dispatch) => {
+  dispatch(addTasksRequest());
+  try {
+    const url = routes.tasksUrl();
+    await axios.post(url, { task });
+    dispatch(addTasksSuccess());
+  } catch (e) {
+    dispatch(addTasksFailure());
+  }
+};
+
+export const newTaskFetched = createAction('TASKS_FETCHED');

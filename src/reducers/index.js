@@ -1,32 +1,31 @@
 import { combineReducers } from 'redux';
 import { handleActions } from 'redux-actions';
-// import { keyBy } from 'lodash';
 import * as actions from '../actions';
 
 
 const tasksFetchingState = handleActions({
-  [actions.fetchTasksRequest]() {
+  [actions.initFetchTasksRequest]() {
     return 'requested';
   },
-  [actions.fetchTasksFailure]() {
+  [actions.initFetchTasksSuccess]() {
     return 'failed';
   },
-  [actions.fetchTasksSuccess]() {
+  [actions.initFetchTasksFailure]() {
     return 'successed';
   },
 }, 'none');
 
 const tasks = handleActions({
-  [actions.fetchTasksSuccess](state, { payload }) {
-    return payload.tasks;
+  [actions.initFetchTasksSuccess](state, { payload }) {
+    return payload;
   },
-  [actions.addTask](state, { payload: { task } }) {
-    return { ...state, [task.id]: task };
+  [actions.newTaskFetched](state, { payload }) {
+    return { ...state, [payload.id]: payload };
   },
 }, {});
 
 const newTaskInputText = handleActions({
-  [actions.addTask]() {
+  [actions.addTasksSuccess]() {
     return '';
   },
   [actions.updateNewTaskText](state, { payload: { text } }) {

@@ -6,7 +6,9 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import App from './components/App';
 import reducers from './reducers';
-import { fetchTasks } from './actions';
+import { initFetchTasks } from './actions';
+import addListeners from './socket';
+
 
 export default () => {
   /* eslint-disable no-underscore-dangle */
@@ -19,8 +21,8 @@ export default () => {
       applyMiddleware(thunk),
     ),
   );
-
-  store.dispatch(fetchTasks());
+  addListeners(store);
+  store.dispatch(initFetchTasks());
 
   render(
     <Provider store={store}>
