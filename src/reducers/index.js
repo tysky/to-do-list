@@ -15,6 +15,18 @@ const tasksFetchingState = handleActions({
   },
 }, 'none');
 
+const taskSendingState = handleActions({
+  [actions.addTasksRequest]() {
+    return 'requested';
+  },
+  [actions.addTasksSuccess]() {
+    return 'failed';
+  },
+  [actions.addTasksFailure]() {
+    return 'successed';
+  },
+}, 'none');
+
 const tasks = handleActions({
   [actions.initFetchTasksSuccess](state, { payload }) {
     return payload;
@@ -36,5 +48,6 @@ const newTaskInputText = handleActions({
 export default combineReducers({
   tasks,
   tasksFetchingState,
+  taskSendingState,
   newTaskInputText,
 });

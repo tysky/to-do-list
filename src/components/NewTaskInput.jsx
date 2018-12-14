@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import * as actionCreators from '../actions';
 
-const mapStateToProps = ({ newTaskInputText }) => {
-  const props = { newTaskInputText };
+const mapStateToProps = ({ newTaskInputText, taskSendingState }) => {
+  const props = { newTaskInputText, taskSendingState };
   return props;
 };
 
@@ -21,7 +21,8 @@ class NewTaskInput extends React.Component {
   }
 
   render() {
-    const { newTaskInputText } = this.props;
+    const { newTaskInputText, taskSendingState } = this.props;
+    const disabled = taskSendingState === 'requested';
     return (
       <form onSubmit={this.addTask}>
         <input
@@ -29,8 +30,9 @@ class NewTaskInput extends React.Component {
           required
           value={newTaskInputText}
           onChange={this.handleInputText}
+          disabled={disabled}
         />
-        <button type="submit">Add</button>
+        <button type="submit" disabled={disabled}>Add</button>
       </form>
     );
   }
@@ -40,6 +42,7 @@ NewTaskInput.propTypes = {
   addTask: PropTypes.func.isRequired,
   newTaskInputText: PropTypes.string.isRequired,
   updateNewTaskText: PropTypes.func.isRequired,
+  taskSendingState: PropTypes.string.isRequired,
 };
 
 export default connect(
