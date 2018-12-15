@@ -12,9 +12,16 @@ const mapStateToProps = ({ tasks }) => {
 const TasksList = ({ tasks }) => {
   const tasksList = Object.values(tasks);
   return (
-    <ul>
-      {tasksList.map(task => <li key={task.id}>{task.text}</li>)}
-    </ul>
+    <>
+      <h3>Todo</h3>
+      <ul>
+        {tasksList.map(task => (
+          <li key={task.id}>
+            {task.text}
+          </li>
+        ))}
+      </ul>
+    </>
   );
 };
 

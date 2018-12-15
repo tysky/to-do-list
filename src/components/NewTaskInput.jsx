@@ -25,13 +25,18 @@ class NewTaskInput extends React.Component {
     const disabled = taskSendingState === 'requested';
     return (
       <form onSubmit={this.addTask}>
-        <input
-          type="text"
-          required
-          value={newTaskInputText}
-          onChange={this.handleInputText}
-          disabled={disabled}
-        />
+        <label htmlFor="new-task">
+          Add Task
+          <input
+            id="new-task"
+            type="text"
+            required
+            value={newTaskInputText}
+            onChange={this.handleInputText}
+            disabled={disabled}
+            autoComplete="off"
+          />
+        </label>
         <button type="submit" disabled={disabled}>Add</button>
       </form>
     );
