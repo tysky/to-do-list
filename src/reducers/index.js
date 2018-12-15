@@ -20,10 +20,10 @@ const taskSendingState = handleActions({
     return 'requested';
   },
   [actions.addTasksSuccess]() {
-    return 'failed';
+    return 'successed';
   },
   [actions.addTasksFailure]() {
-    return 'successed';
+    return 'failed';
   },
 }, 'none');
 

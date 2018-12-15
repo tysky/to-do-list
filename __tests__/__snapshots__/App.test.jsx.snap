@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App 1`] = `
+Array [
+  <form
+    onSubmit={[Function]}
+  >
+    <label
+      htmlFor="new-task"
+    >
+      Add Task
+      <input
+        autoComplete="off"
+        disabled={false}
+        id="new-task"
+        onChange={[Function]}
+        required={true}
+        type="text"
+        value=""
+      />
+    </label>
+    <button
+      disabled={false}
+      type="submit"
+    >
+      Add
+    </button>
+  </form>,
+  <h3>
+    Todo
+  </h3>,
+  <ul />,
+]
+`;
