@@ -27,12 +27,30 @@ const taskSendingState = handleActions({
   },
 }, 'none');
 
+const taskEditingState = handleActions({
+  [actions.editTaskRequest]() {
+    return 'requested';
+  },
+  [actions.editTaskSuccess]() {
+    return 'successed';
+  },
+  [actions.editTaskFailure]() {
+    return 'failed';
+  },
+}, 'none');
+
 const tasks = handleActions({
   [actions.initFetchTasksSuccess](state, { payload }) {
     return payload;
   },
   [actions.newTaskFetched](state, { payload }) {
     return { ...state, [payload.id]: payload };
+  },
+  [actions.taskEdited](state, { payload }) {
+    return {
+      ...state,
+      [payload.id]: payload,
+    };
   },
 }, {});
 
@@ -49,5 +67,6 @@ export default combineReducers({
   tasks,
   tasksFetchingState,
   taskSendingState,
+  taskEditingState,
   newTaskInputText,
 });

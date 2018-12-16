@@ -33,6 +33,7 @@ describe('Store', () => {
       tasks: {},
       tasksFetchingState: 'none',
       taskSendingState: 'none',
+      taskEditingState: 'none',
       newTaskInputText: '',
     });
   });
@@ -65,12 +66,12 @@ describe('Store', () => {
   test('should change status of the existing task', () => {
     store.dispatch(actions.newTaskFetched(task1));
     store.dispatch(actions.newTaskFetched(task2));
-    store.dispatch(actions.taskEdited({ id: 1, status: 'done' }));
+    store.dispatch(actions.taskEdited({ id: 1, status: 'completed', text: 'test task1' }));
     expect(store.getState().tasks).toEqual({
       1: {
         id: 1,
         text: 'test task1',
-        status: 'done',
+        status: 'completed',
       },
       2: {
         id: 2,
@@ -78,8 +79,8 @@ describe('Store', () => {
         status: 'todo',
       },
     });
-    store.dispatch(actions.taskEdited({ taskId: 2, status: 'done' }));
-    store.dispatch(actions.taskEdited({ taskId: 1, status: 'todo' }));
+    store.dispatch(actions.taskEdited({ id: 2, status: 'completed', text: 'test task2' }));
+    store.dispatch(actions.taskEdited({ id: 1, status: 'todo', text: 'test task1' }));
     expect(store.getState().tasks).toEqual({
       1: {
         id: 1,
@@ -89,7 +90,7 @@ describe('Store', () => {
       2: {
         id: 2,
         text: 'test task2',
-        status: 'done',
+        status: 'completed',
       },
     });
   });

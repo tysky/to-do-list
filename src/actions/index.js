@@ -35,3 +35,19 @@ export const addTask = task => async (dispatch) => {
 };
 
 export const newTaskFetched = createAction('TASKS_FETCHED');
+export const taskEdited = createAction('TASK_EDITED');
+
+export const editTaskRequest = createAction('TASK_EDIT_REQUEST');
+export const editTaskSuccess = createAction('TASK_EDIT_SUCCESS');
+export const editTaskFailure = createAction('TASK_EDIT_FAILURE');
+
+export const editTask = task => async (dispatch) => {
+  dispatch(editTaskRequest());
+  try {
+    const url = routes.taskUrl(task.id);
+    await axios.patch(url, { task });
+    dispatch(editTaskSuccess());
+  } catch (e) {
+    dispatch(editTaskFailure());
+  }
+};

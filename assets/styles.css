@@ -84,3 +84,20 @@ li {
   padding: 5px 0;
   border-bottom: 1px solid #eee;
 }
+li > input[type="checkbox"] {
+  margin: 0 10px;
+  position: relative;
+  top: 15px;
+}
+li > span {
+  font-size: 18px;
+  line-height: 40px;
+  width: 260px;
+  padding: 0 0 0 5px;
+}
+
+/* Completed */
+span.completed {
+  text-decoration: line-through;
+  color: #888;
+}
