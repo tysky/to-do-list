@@ -1,5 +1,5 @@
 const express = require('express');
-const uniqueId = require('lodash/uniqueId');
+const { omit, uniqueId } = require('lodash');
 
 const tasks = {};
 
@@ -22,9 +22,16 @@ const getRouter = (io) => {
     res.status(201).end();
   });
   apiRouter.patch('/tasks/:id', (req, res) => {
+    const taskId = req.params.id;
     const { task } = req.body;
-    tasks[task.id] = { ...tasks[task.id], ...task };
-    io.emit('taskEdited', tasks[task.id]);
+    tasks[taskId] = { ...tasks[taskId], ...task };
+    io.emit('taskEdited', tasks[taskId]);
+    res.status(204).end();
+  });
+  apiRouter.delete('/tasks/:id', (req, res) => {
+    const taskId = req.params.id;
+    delete tasks[taskId];
+    io.emit('taskDeleted', taskId);
     res.status(204).end();
   });
 

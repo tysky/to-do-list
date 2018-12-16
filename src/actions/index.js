@@ -36,6 +36,7 @@ export const addTask = task => async (dispatch) => {
 
 export const newTaskFetched = createAction('TASKS_FETCHED');
 export const taskEdited = createAction('TASK_EDITED');
+export const taskDeleted = createAction('TASK_DELETED');
 
 export const editTaskRequest = createAction('TASK_EDIT_REQUEST');
 export const editTaskSuccess = createAction('TASK_EDIT_SUCCESS');
@@ -49,5 +50,20 @@ export const editTask = task => async (dispatch) => {
     dispatch(editTaskSuccess());
   } catch (e) {
     dispatch(editTaskFailure());
+  }
+};
+
+export const deleteTaskRequest = createAction('TASK_DELETE_REQUEST');
+export const deleteTaskSuccess = createAction('TASK_DELETE_SUCCESS');
+export const deleteTaskFailure = createAction('TASK_DELETE_FAILURE');
+
+export const deleteTask = taskId => async (dispatch) => {
+  dispatch(deleteTaskRequest());
+  try {
+    const url = routes.taskUrl(taskId);
+    await axios.delete(url);
+    dispatch(deleteTaskSuccess());
+  } catch (e) {
+    dispatch(deleteTaskFailure());
   }
 };

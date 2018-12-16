@@ -95,6 +95,9 @@ li > span {
   width: 260px;
   padding: 0 0 0 5px;
 }
+li > .delete:hover {
+  color: #CF2323;
+}
 
 /* Completed */
 span.completed {

@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import { handleActions } from 'redux-actions';
+import { omit } from 'lodash';
 import * as actions from '../actions';
 
 
@@ -39,6 +40,18 @@ const taskEditingState = handleActions({
   },
 }, 'none');
 
+const taskDeletingState = handleActions({
+  [actions.deleteTaskRequest]() {
+    return 'requested';
+  },
+  [actions.deleteTaskSuccess]() {
+    return 'successed';
+  },
+  [actions.deleteTaskFailure]() {
+    return 'failed';
+  },
+}, 'none');
+
 const tasks = handleActions({
   [actions.initFetchTasksSuccess](state, { payload }) {
     return payload;
@@ -51,6 +64,9 @@ const tasks = handleActions({
       ...state,
       [payload.id]: payload,
     };
+  },
+  [actions.taskDeleted](state, { payload }) {
+    return omit(state, payload);
   },
 }, {});
 
@@ -68,5 +84,6 @@ export default combineReducers({
   tasksFetchingState,
   taskSendingState,
   taskEditingState,
+  taskDeletingState,
   newTaskInputText,
 });

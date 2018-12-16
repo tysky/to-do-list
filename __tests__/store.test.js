@@ -8,6 +8,8 @@ const initialState = {
   tasks: {},
   tasksFetchingState: 'none',
   taskSendingState: 'none',
+  taskEditingState: 'none',
+  taskDeletingState: 'none',
   newTaskInputText: '',
 };
 
@@ -34,6 +36,7 @@ describe('Store', () => {
       tasksFetchingState: 'none',
       taskSendingState: 'none',
       taskEditingState: 'none',
+      taskDeletingState: 'none',
       newTaskInputText: '',
     });
   });
@@ -93,5 +96,20 @@ describe('Store', () => {
         status: 'completed',
       },
     });
+  });
+
+  test('should delete task', () => {
+    store.dispatch(actions.newTaskFetched(task1));
+    store.dispatch(actions.newTaskFetched(task2));
+    store.dispatch(actions.taskDeleted(1));
+    expect(store.getState().tasks).toEqual({
+      2: {
+        id: 2,
+        text: 'test task2',
+        status: 'todo',
+      },
+    });
+    store.dispatch(actions.taskDeleted(2));
+    expect(store.getState().tasks).toEqual({ });
   });
 });

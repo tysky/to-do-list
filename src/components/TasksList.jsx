@@ -23,6 +23,11 @@ class TasksList extends React.Component {
     editTask({ id, status: newStatus });
   }
 
+  handleDeleteButton = id => () => {
+    const { deleteTask } = this.props;
+    deleteTask(id);
+  }
+
   render() {
     const { tasks } = this.props;
     const tasksList = Object.values(tasks);
@@ -38,6 +43,7 @@ class TasksList extends React.Component {
                 onChange={this.handleTaskCheckbox(task.id)}
               />
               <span className={getSpanClass(task)}>{task.text}</span>
+              <button type="button" className="delete" onClick={this.handleDeleteButton(task.id)}>Delete</button>
             </li>
           ))}
         </ul>
@@ -53,6 +59,7 @@ TasksList.propTypes = {
     status: PropTypes.string,
   }).isRequired,
   editTask: PropTypes.func.isRequired,
+  deleteTask: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, actionCreators)(TasksList);

@@ -1,5 +1,5 @@
 import io from 'socket.io-client';
-import { newTaskFetched, taskEdited } from './actions';
+import { newTaskFetched, taskEdited, taskDeleted } from './actions';
 
 export default (store) => {
   const socket = io();
@@ -8,5 +8,8 @@ export default (store) => {
   }));
   socket.on('taskEdited', ((task) => {
     store.dispatch(taskEdited(task));
+  }));
+  socket.on('taskDeleted', ((taskId) => {
+    store.dispatch(taskDeleted(taskId));
   }));
 };
