@@ -29,6 +29,7 @@ class NewTaskInput extends React.Component {
           Add Task
           <input
             id="new-task"
+            className="addTaskInput"
             type="text"
             required
             value={newTaskInputText}

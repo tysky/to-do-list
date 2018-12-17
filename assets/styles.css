@@ -50,8 +50,10 @@ label[for='new-task'] {
   margin: 0;
   text-transform: uppercase;
 }
-input[type="text"] {
+.addTaskInput {
   margin-top: 30px;
+}
+input[type="text"] {
   font-size: 18px;
   line-height: 18px;
   height: 18px;
@@ -95,8 +97,14 @@ li > span {
   width: 260px;
   padding: 0 0 0 5px;
 }
+li > .edit:hover {
+  color: #429dca;
+}
 li > .delete:hover {
   color: #CF2323;
+}
+.editTaskInput {
+  width: 243px;
 }
 
 /* Completed */

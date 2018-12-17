@@ -11,6 +11,7 @@ Array [
       Add Task
       <input
         autoComplete="off"
+        className="addTaskInput"
         disabled={false}
         id="new-task"
         onChange={[Function]}

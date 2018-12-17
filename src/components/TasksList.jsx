@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import cn from 'classnames';
 import * as actionCreators from '../actions';
+import Task from './Task';
 
 
 const mapStateToProps = ({ tasks }) => {
@@ -12,22 +12,7 @@ const mapStateToProps = ({ tasks }) => {
   return props;
 };
 
-const getSpanClass = task => cn({
-  completed: task.status === 'completed',
-});
-
 class TasksList extends React.Component {
-  handleTaskCheckbox = id => () => {
-    const { editTask, tasks } = this.props;
-    const newStatus = tasks[id].status === 'todo' ? 'completed' : 'todo';
-    editTask({ id, status: newStatus });
-  }
-
-  handleDeleteButton = id => () => {
-    const { deleteTask } = this.props;
-    deleteTask(id);
-  }
-
   render() {
     const { tasks } = this.props;
     const tasksList = Object.values(tasks);
@@ -37,13 +22,7 @@ class TasksList extends React.Component {
         <ul>
           {tasksList.map(task => (
             <li key={task.id}>
-              <input
-                type="checkbox"
-                checked={task.status === 'completed'}
-                onChange={this.handleTaskCheckbox(task.id)}
-              />
-              <span className={getSpanClass(task)}>{task.text}</span>
-              <button type="button" className="delete" onClick={this.handleDeleteButton(task.id)}>Delete</button>
+              <Task task={task} />
             </li>
           ))}
         </ul>
@@ -58,8 +37,6 @@ TasksList.propTypes = {
     text: PropTypes.string,
     status: PropTypes.string,
   }).isRequired,
-  editTask: PropTypes.func.isRequired,
-  deleteTask: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, actionCreators)(TasksList);

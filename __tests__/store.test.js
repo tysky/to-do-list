@@ -98,6 +98,18 @@ describe('Store', () => {
     });
   });
 
+  test('should edit task text', () => {
+    store.dispatch(actions.newTaskFetched(task1));
+    store.dispatch(actions.taskEdited({ id: 1, status: 'todo', text: 'new task text' }));
+    expect(store.getState().tasks).toEqual({
+      1: {
+        id: 1,
+        text: 'new task text',
+        status: 'todo',
+      },
+    });
+  });
+
   test('should delete task', () => {
     store.dispatch(actions.newTaskFetched(task1));
     store.dispatch(actions.newTaskFetched(task2));
