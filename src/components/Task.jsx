@@ -4,9 +4,15 @@ import PropTypes from 'prop-types';
 import cn from 'classnames';
 import * as actionCreators from '../actions';
 
+const mapStateToProps = ({ tasks }) => {
+  const props = {
+    tasksList: Object.values(tasks),
+  };
+  return props;
+};
 
 class Task extends React.Component {
-  state = { editing: false, editingText: '' } // eslint-disable-line 
+  state = { editing: false, editingText: '' }
 
   handleTaskCheckbox = () => {
     const { editTask, task: { id, status } } = this.props;
@@ -15,8 +21,12 @@ class Task extends React.Component {
   }
 
   handleDeleteButton = () => {
-    const { deleteTask, task: { id } } = this.props;
+    const {
+      deleteTask, task: { id }, tasksList, editTask,
+    } = this.props;
     deleteTask(id);
+    tasksList.forEach(task => task.taskIndex > id
+      && editTask({ id: task.id, taskIndex: task.taskIndex - 1 }));
   }
 
   handleEditButton = () => {
@@ -85,5 +95,6 @@ Task.propTypes = {
   }).isRequired,
   editTask: PropTypes.func.isRequired,
   deleteTask: PropTypes.func.isRequired,
+  tasksList: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
-export default connect(null, actionCreators)(Task);
+export default connect(mapStateToProps, actionCreators)(Task);

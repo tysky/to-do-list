@@ -36,6 +36,7 @@ export const addTask = task => async (dispatch) => {
 
 export const newTaskFetched = createAction('TASKS_FETCHED');
 export const taskEdited = createAction('TASK_EDITED');
+export const tasksEdited = createAction('TASKS_EDITED');
 export const taskDeleted = createAction('TASK_DELETED');
 
 export const editTaskRequest = createAction('TASK_EDIT_REQUEST');
@@ -67,3 +68,5 @@ export const deleteTask = taskId => async (dispatch) => {
     dispatch(deleteTaskFailure());
   }
 };
+
+export const changeTasksOrder = createAction('TASKS_CHANGE_ORDER');

@@ -1,8 +1,10 @@
 import io from 'socket.io-client';
-import { newTaskFetched, taskEdited, taskDeleted } from './actions';
+import {
+  newTaskFetched, taskEdited, tasksEdited, taskDeleted,
+} from './actions';
 
+const socket = io();
 export default (store) => {
-  const socket = io();
   socket.on('newTask', ((newTask) => {
     store.dispatch(newTaskFetched(newTask));
   }));
@@ -12,4 +14,10 @@ export default (store) => {
   socket.on('taskDeleted', ((taskId) => {
     store.dispatch(taskDeleted(taskId));
   }));
+  socket.on('tasksOrderChanged', (tasks) => {
+    store.dispatch(tasksEdited(tasks));
+  });
+};
+export const sendTasksOrder = (tasks) => {
+  socket.emit('order', tasks);
 };

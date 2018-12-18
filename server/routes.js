@@ -1,7 +1,8 @@
 const express = require('express');
-const { omit, uniqueId } = require('lodash');
+const { uniqueId } = require('lodash');
+const changeTasksOrder = require('../lib/changeTasksOrder');
 
-const tasks = {};
+let tasks = {};
 
 const getNextId = () => Number(uniqueId());
 
@@ -34,7 +35,13 @@ const getRouter = (io) => {
     io.emit('taskDeleted', taskId);
     res.status(204).end();
   });
-
+  io.on('connection', (socket) => {
+    socket.on('order', ({ srcIndex, destIndex }) => {
+      const changedTasks = changeTasksOrder(tasks, srcIndex, destIndex);
+      tasks = { ...tasks, ...changedTasks };
+      socket.broadcast.emit('tasksOrderChanged', changedTasks);
+    });
+  });
   return apiRouter;
 };
 

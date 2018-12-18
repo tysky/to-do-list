@@ -3,8 +3,12 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import * as actionCreators from '../actions';
 
-const mapStateToProps = ({ newTaskInputText, taskSendingState }) => {
-  const props = { newTaskInputText, taskSendingState };
+const mapStateToProps = ({ newTaskInputText, taskSendingState, tasks }) => {
+  const props = {
+    newTaskInputText,
+    taskSendingState,
+    tasksLength: Object.values(tasks).length,
+  };
   return props;
 };
 
@@ -16,8 +20,8 @@ class NewTaskInput extends React.Component {
 
   addTask = (e) => {
     e.preventDefault();
-    const { addTask, newTaskInputText } = this.props;
-    addTask({ text: newTaskInputText });
+    const { addTask, newTaskInputText, tasksLength } = this.props;
+    addTask({ text: newTaskInputText, taskIndex: tasksLength + 1 });
   }
 
   render() {
@@ -49,6 +53,7 @@ NewTaskInput.propTypes = {
   newTaskInputText: PropTypes.string.isRequired,
   updateNewTaskText: PropTypes.func.isRequired,
   taskSendingState: PropTypes.string.isRequired,
+  tasksLength: PropTypes.number.isRequired,
 };
 
 export default connect(

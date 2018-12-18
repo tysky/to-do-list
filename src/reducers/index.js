@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 import { handleActions } from 'redux-actions';
 import { omit } from 'lodash';
 import * as actions from '../actions';
+import changeTasksOrder from '../../lib/changeTasksOrder';
 
 
 const tasksFetchingState = handleActions({
@@ -65,8 +66,17 @@ const tasks = handleActions({
       [payload.id]: payload,
     };
   },
+  [actions.tasksEdited](state, { payload }) {
+    return {
+      ...state,
+      ...payload,
+    };
+  },
   [actions.taskDeleted](state, { payload }) {
     return omit(state, payload);
+  },
+  [actions.changeTasksOrder](state, { payload: { srcIndex, destIndex } }) {
+    return { ...state, ...changeTasksOrder(state, srcIndex, destIndex) };
   },
 }, {});
 
