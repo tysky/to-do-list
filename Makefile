@@ -2,7 +2,7 @@ install:
 	npm install
 
 start:
-	DEBUG=events npm run dev
+	npm run dev
 
 build:
 	npm run build
