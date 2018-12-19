@@ -1,11 +1,16 @@
-
 import React from 'react';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
-import App from '../src/components/App';
+import Task from '../src/components/Task';
 import reducers from '../src/reducers';
 
+const task = {
+  id: 1,
+  status: 'todo',
+  taskIndex: 1,
+  text: 'task text',
+};
 const initialState = {
   tasks: {},
   tasksFetchingState: 'none',
@@ -14,11 +19,10 @@ const initialState = {
 };
 
 const store = createStore(reducers, initialState);
-
-test('App', () => {
+test('NewTaskInput', () => {
   const component = renderer.create(
     <Provider store={store}>
-      <App />
+      <Task task={task} />
     </Provider>,
   );
 

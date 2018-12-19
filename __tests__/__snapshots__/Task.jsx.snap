@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NewTaskInput 1`] = `
+Array [
+  <input
+    checked={false}
+    onChange={[Function]}
+    type="checkbox"
+  />,
+  <span
+    className=""
+  >
+    task text
+  </span>,
+  <button
+    className="edit"
+    onClick={[Function]}
+    type="button"
+  >
+    Edit
+  </button>,
+  <button
+    className="delete"
+    onClick={[Function]}
+    type="button"
+  >
+    Delete
+  </button>,
+]
+`;

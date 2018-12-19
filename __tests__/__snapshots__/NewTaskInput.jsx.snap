@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NewTaskInput 1`] = `
+<form
+  onSubmit={[Function]}
+>
+  <label
+    htmlFor="new-task"
+  >
+    Add Task
+    <input
+      autoComplete="off"
+      className="addTaskInput"
+      disabled={false}
+      id="new-task"
+      onChange={[Function]}
+      required={true}
+      type="text"
+      value=""
+    />
+  </label>
+  <button
+    disabled={false}
+    type="submit"
+  >
+    Add
+  </button>
+</form>
+`;

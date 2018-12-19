@@ -47,7 +47,6 @@ class NewTaskInput extends React.Component {
           </label>
           <button type="submit" disabled={requested}>Add</button>
         </form>
-        <div />
         {failed && <Alert message="Oh snap! Error while adding task. Try again." /> }
       </>
     );
