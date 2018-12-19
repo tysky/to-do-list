@@ -5,7 +5,7 @@ body {
   font-family: Roboto, sans-serif;
 }
 h1 {
-  margin-left: 15px;
+  margin: 10px 0px 0px 15px;
 }
 #container {
   display: block;
@@ -111,4 +111,17 @@ li > .delete:hover {
 span.completed {
   text-decoration: line-through;
   color: #888;
+}
+
+/* Alert message */
+.alert {
+  position: relative;
+  padding: .75rem 1.25rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  border-radius: .25rem;
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+  margin-top: 1rem;
 }

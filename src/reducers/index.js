@@ -10,10 +10,10 @@ const tasksFetchingState = handleActions({
     return 'requested';
   },
   [actions.initFetchTasksSuccess]() {
-    return 'failed';
+    return 'succeed';
   },
   [actions.initFetchTasksFailure]() {
-    return 'successed';
+    return 'failed';
   },
 }, 'none');
 
@@ -22,7 +22,7 @@ const taskSendingState = handleActions({
     return 'requested';
   },
   [actions.addTasksSuccess]() {
-    return 'successed';
+    return 'succeed';
   },
   [actions.addTasksFailure]() {
     return 'failed';
@@ -34,7 +34,7 @@ const taskEditingState = handleActions({
     return 'requested';
   },
   [actions.editTaskSuccess]() {
-    return 'successed';
+    return 'succeed';
   },
   [actions.editTaskFailure]() {
     return 'failed';
@@ -46,7 +46,7 @@ const taskDeletingState = handleActions({
     return 'requested';
   },
   [actions.deleteTaskSuccess]() {
-    return 'successed';
+    return 'succeed';
   },
   [actions.deleteTaskFailure]() {
     return 'failed';

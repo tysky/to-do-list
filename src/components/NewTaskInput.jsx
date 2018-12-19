@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import * as actionCreators from '../actions';
+import Alert from './Alert';
 
 const mapStateToProps = ({ newTaskInputText, taskSendingState, tasks }) => {
   const props = {
@@ -26,24 +27,29 @@ class NewTaskInput extends React.Component {
 
   render() {
     const { newTaskInputText, taskSendingState } = this.props;
-    const disabled = taskSendingState === 'requested';
+    const requested = taskSendingState === 'requested';
+    const failed = taskSendingState === 'failed';
     return (
-      <form onSubmit={this.addTask}>
-        <label htmlFor="new-task">
+      <>
+        <form onSubmit={this.addTask}>
+          <label htmlFor="new-task">
           Add Task
-          <input
-            id="new-task"
-            className="addTaskInput"
-            type="text"
-            required
-            value={newTaskInputText}
-            onChange={this.handleInputText}
-            disabled={disabled}
-            autoComplete="off"
-          />
-        </label>
-        <button type="submit" disabled={disabled}>Add</button>
-      </form>
+            <input
+              id="new-task"
+              className="addTaskInput"
+              type="text"
+              required
+              value={newTaskInputText}
+              onChange={this.handleInputText}
+              disabled={requested}
+              autoComplete="off"
+            />
+          </label>
+          <button type="submit" disabled={requested}>Add</button>
+        </form>
+        <div />
+        {failed && <Alert message="Oh snap! Error while adding task. Try again." /> }
+      </>
     );
   }
 }

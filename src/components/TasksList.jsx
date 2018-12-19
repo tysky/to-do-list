@@ -5,12 +5,18 @@ import PropTypes from 'prop-types';
 import * as actionCreators from '../actions';
 import Task from './Task';
 import { sendTasksOrder } from '../socket';
+import Alert from './Alert';
 
 
-const mapStateToProps = ({ tasks }) => {
+const mapStateToProps = ({
+  tasks, tasksFetchingState, taskEditingState, taskDeletingState,
+}) => {
   const props = {
     tasks,
     orderedTasksList: Object.values(tasks).sort((a, b) => a.taskIndex - b.taskIndex),
+    tasksFetchingState,
+    taskEditingState,
+    taskDeletingState,
   };
   return props;
 };
@@ -29,10 +35,18 @@ class TasksList extends React.Component {
   }
 
   render() {
-    const { orderedTasksList } = this.props;
+    const {
+      orderedTasksList, tasksFetchingState, taskEditingState, taskDeletingState,
+    } = this.props;
+    const failed = tasksFetchingState === 'failed';
+    const editingFailed = taskEditingState === 'failed';
+    const deletingFailed = taskDeletingState === 'failed';
     return (
       <DragDropContext onDragEnd={this.onDragEnd}>
         <h3>Todo</h3>
+        {failed && <Alert message="Oh snap! Error while loading tasks. Try again." />}
+        {editingFailed && <Alert message="Oh snap! Error while editing task. Try again." /> }
+        {deletingFailed && <Alert message="Oh snap! Error while deleting task. Try again." /> }
         <Droppable droppableId="droppable">
           {provided => (
             <ul ref={provided.innerRef}>
@@ -63,6 +77,9 @@ TasksList.propTypes = {
     text: PropTypes.string,
     status: PropTypes.string,
   }).isRequired,
+  tasksFetchingState: PropTypes.string.isRequired,
+  taskEditingState: PropTypes.string.isRequired,
+  taskDeletingState: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps, actionCreators)(TasksList);
