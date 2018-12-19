@@ -22,11 +22,14 @@ class Task extends React.Component {
 
   handleDeleteButton = () => {
     const {
-      deleteTask, task: { id }, tasksList, editTask,
+      deleteTask, task: { id, taskIndex }, tasksList, editTask,
     } = this.props;
     deleteTask(id);
-    tasksList.forEach(task => task.taskIndex > id
-      && editTask({ id: task.id, taskIndex: task.taskIndex - 1 }));
+    tasksList.forEach((task) => {
+      if (task.taskIndex > taskIndex) {
+        editTask({ id: task.id, taskIndex: task.taskIndex - 1 });
+      }
+    });
   }
 
   handleEditButton = () => {
