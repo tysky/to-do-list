@@ -73,7 +73,9 @@
     "eslint-plugin-react": "^7.11.1",
     "jest": "^23.6.0",
     "jest-cli": "^23.6.0",
+    "jest-supertest-matchers": "^0.0.1",
     "nodemon": "^1.18.8",
-    "react-test-renderer": "^16.6.3"
+    "react-test-renderer": "^16.6.3",
+    "supertest": "^3.3.0"
   }
 }
